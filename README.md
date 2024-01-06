@@ -1,7 +1,7 @@
 ## This WebApp lets you calculate toll prices between two places
 You shall enter
 - Origin
-- Destination
+- Destination/\
 And it will display
 - A map of directions between orign - destination
 - Toll prices
