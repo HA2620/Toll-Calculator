@@ -103,13 +103,14 @@
     .button{
       background:    #202124;
       border-radius: 7px;
-      width:         199px;
+      width:         150px;
       height:        50px;
       color:         #f9f9f9;
       display:       inline-block;
-      font:          normal bold 20px/40px "Roboto", sans-serif;
+      font:          normal bold 20px/50px "Roboto", sans-serif;
       text-align:    center;
       text-decoration: none;
+      margin-right: 20px;
     }
     .avi{
       display:flex;
@@ -121,32 +122,49 @@
 <body>
 
   <div class="container">
+    <% if (routeJSON.status == 403) { %>
+
+      <p><strong>Some Internal Error occured | Status Code : 403</strong></p>
+   
+      <%} else { %>
     <div class="details">
       <h2>Trip Details</h2>
       
+
       <p><strong>Origin : </strong> <%= routeJSON.origin.addr %></p>
-      <p><strong>Destination : </strong> <%= routeJSON.destination.addr %></p><br>
+      <p><strong>Destination : </strong> <%= routeJSON.destination.addr %></p>
 
       <p><strong>Distance : </strong><%= routeJSON.routeDet.distance %></p>
       <p><strong>Estimated Time : </strong><%= routeJSON.routeDet.duration %></p>
       <p><strong>Fuel Price : </strong>Rs <%= routeJSON.costs.fuelCost %></p> <br>
 
+      <p><strong>Number of Tolls : </strong><%= routeJSON.tolls.length %></p>
       <p><strong>Toll Cost(CASH) : </strong><%= routeJSON.costs.cash %></p>
       <p><strong>Toll Cost(FASTAG) : </strong><%= routeJSON.costs.tag %></p>
       <div class="parent-container">
           <% routeJSON.tolls.forEach(function(toll) { %>
             <div class="child">
-
-                <p><strong>Name : </strong><%= toll.name %></p>
+              <% if (!toll.name) { %>
+                <p><strong>Name : </strong><%= toll.start.name %></p>
                 <p><strong>FASTAG : </strong>Rs <%= toll.tagCost %></p>
                 <p><strong>Road : </strong><%= toll.road %></p>
                 <p><strong>STATE : </strong><%= toll.state %></p>
-    
+                
+                
+                <%} else { %>
+                  <p><strong>Name : </strong><%= toll.name %></p>
+                  <p><strong>FASTAG : </strong>Rs <%= toll.tagCost %></p>
+                  <p><strong>Road : </strong><%= toll.road %></p>
+                  <p><strong>STATE : </strong><%= toll.state %></p>
+      
+                <% } %>
+                
             </div>
         <% }); %> 
 
        </div>
     </div>
+    
 
     <div class="map">
       <h2>Origin - Destination</h2>
@@ -157,7 +175,7 @@
 
         <div class="preDet">
           <div class="avi">
-            <h3>PREDEDAULT DETAILS</h3>
+            <h3>DEFAULT DETAILS</h3>
             <a href="/" class="button">Search again</a>
           </div>
           <p><strong>Fuel Rate : </strong><%= routeJSON.fuelInfo.rate %></p>
@@ -166,6 +184,7 @@
         </div>
       </div>
     </div>
+    <% } %>
   </div>
 
 </body>
