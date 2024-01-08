@@ -2,7 +2,7 @@
 You shall enter
 - Origin
 - Destination 
-=======
+
 And it will display
 
 - A map of directions between orign - destination
