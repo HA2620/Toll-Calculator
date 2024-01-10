@@ -27,7 +27,7 @@ app.post("/",function(requ,resp){
         "path": "/toll/v2/origin-destination-waypoints",
         "headers": {
           "content-type": "application/json",
-          "x-api-key": "M48RDdBnDrnH9JQQGPg9BNH4HpGqnqp8"
+          "x-api-key": "TOLL_GURU_API_KEY"
         }
       };
 
@@ -95,7 +95,7 @@ app.post("/",function(requ,resp){
         from: {address: requ.body.origin},
         to: {address: requ.body.destination},
         serviceProvider: 'gmaps',
-        
+
         // ##........Can be used later........##
 
       //   waypoints: [{address: 'Bridgewater Township , New Jersey'}],
