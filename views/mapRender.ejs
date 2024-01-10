@@ -3,128 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/styleMap.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,400&display=swap" rel="stylesheet">
   <title>Trip Details and Map</title>
 
-  <style>
-    body {
-      font-family:'Roboto', sans-serif;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      background-color: #34495e; /* Dark background color */
-      color: #ecf0f1; /* Light text color */
-    }
 
-    .container {
-      display: flex;
-      width: 80%;
-      max-width: 1200px;
-      /* border: 2px solid salmon; */
-    }
-    
-    .details {
-      flex: 1;
-      box-sizing: border-box;
-      padding: 40px;
-      background-color: #2c3e50; /* Dark blue background */
-      /* text-align: center; */
-      border-radius: 4px;
-    }
-    .details h2{
-      color: #e2e2e2;
-      margin-bottom: 50px;
-    }
-     strong{
-      text-transform: uppercase;
-    }
-
-    .map {
-      flex: 1;
-      box-sizing: border-box;
-      overflow: hidden;
-      background-color: #e2e2e2; /* Blue background */
-      text-align: center;
-    }
-
-    h2 {
-      color: #000000; /* Light heading color */
-    }
-
-    p {
-      color: #bdc3c7; /* Light text color */
-    }
-
-    /* Placeholder styles, replace with actual map styles */
-    #map {
-      width: 100%;
-      height: 100%;
-      border: 2px solid black;
-    }
-  
-
-    .parent-container {
-      display: flex;
-      flex-wrap: wrap; /* Children wrap to the next row if needed */
-      gap: 3px; /* Spacing between children */
-      padding: 2px; /* Padding for the parent container */
-      background-color: #2c3e50; /* White background color */
-      /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); Box shadow for a subtle lift */
-    }
-
-    .child {
-      flex: 1 1 calc(33.33% - 20px); /* Equal width with gap spacing */
-      box-sizing: border-box;
-      padding: 4px;
-      max-width: calc(33.33% - 20px); /* Maximum width to prevent exceeding */
-      background-color: #202124; /* Blue background color */
-      color: #e8e8e8; /* Light text color */
-      /* text-align: center; */
-      margin-bottom: 20px; /* Add margin at the bottom for spacing */
-      font-size: 14px;
-    }
-    .child p{
-      margin: 2px;
-    }
-    .map .preDet{
-      padding: 0 0 0 30px;
-      color: #292a2e;
-      text-align: left;
-      margin-top: 10px;
-    }
-    .map .preDet p{
-      color: #38393d;
-    }
-    .button{
-      background:    #202124;
-      border-radius: 7px;
-      width:         150px;
-      height:        50px;
-      color:         #f9f9f9;
-      display:       inline-block;
-      font:          normal bold 20px/50px "Roboto", sans-serif;
-      text-align:    center;
-      text-decoration: none;
-      margin-right: 20px;
-    }
-    .avi{
-      display:flex;
-      justify-content:space-between;
-    }
-  </style>
   
 </head>
 <body>
 
   <div class="container">
-    <% if (routeJSON.status == 403) { %>
+    <% if (routeJSON.status != 200) { %>
 
-      <p><strong>Some Internal Error occured | Status Code : 403</strong></p>
+      <p><strong>Some Internal Error occured | Error Status Code : <%= routeJSON.status %></strong></p>
    
       <%} else { %>
     <div class="details">
@@ -171,7 +64,7 @@
       <div id="map">
   
         <iframe width="600" height="450" style="border:0" loading="lazy" allowfullscreen
-        src="https://www.google.com/maps/embed/v1/directions?origin=+<%= routeJSON.origin.lat %>+,+<%= routeJSON.origin.lng %>+&destination=+<%= routeJSON.destination.lat %>+,+<%= routeJSON.destination.lng %>+&key=GOOGLE_MAP_API_KEY"></iframe>
+        src="https://www.google.com/maps/embed/v1/directions?origin=+<%= routeJSON.origin.lat %>+,+<%= routeJSON.origin.lng %>+&destination=+<%= routeJSON.destination.lat %>+,+<%= routeJSON.destination.lng %>+&key=AIzaSyB_JrYXwQ418KOc9QaS7Y43BNJLXJd1gxg"></iframe>
 
         <div class="preDet">
           <div class="avi">

@@ -1,13 +1,10 @@
-// I shall integrate edge cases what if user entered wrong address or any other error.
-
 
 const express = require("express");
 const https = require("https");
 const ejs = require("ejs");
 const bodyParser = require("body-parser");
+
 const app = express();
-
-
 
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
@@ -15,7 +12,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.get("/", function (req, res) {
-  res.render("index", { aboutParagraph: "" });
+  res.render("index");
   
 });
 
@@ -30,9 +27,10 @@ app.post("/",function(requ,resp){
         "path": "/toll/v2/origin-destination-waypoints",
         "headers": {
           "content-type": "application/json",
-          "x-api-key": "TOLL_GURU_API_KEY"
+          "x-api-key": "M48RDdBnDrnH9JQQGPg9BNH4HpGqnqp8"
         }
       };
+
     console.log("Post recieved");
     
     const req = https.request(options, function (res) {
@@ -46,15 +44,15 @@ app.post("/",function(requ,resp){
           const body = Buffer.concat(chunks);
           const parseBody = JSON.parse(body);
           console.log(parseBody);
-          // resp.send(parseBody);
-          // if
-          if(parseBody.status == 403){
+    
+          var infoBody={};
+          if(parseBody.status != 'OK'){
             infoBody={
-              status:403
+              status:parseBody.status
             }
           }else{
 
-          const infoBody = {
+          infoBody = {
             status:200,
             origin:{
               lat:parseBody.summary.route[0].location.lat,
@@ -88,19 +86,19 @@ app.post("/",function(requ,resp){
             },
             tolls:parseBody.routes[0].tolls, 
           }
-        }
-          
-          // resp.send(infoBody);
-          console.log(infoBody.tolls);
-          // console.log(infoBody.origin.lng);
+        }      
+          console.log(infoBody.tolls);   
           resp.render("mapRender", { routeJSON:infoBody });
         });
       });
       req.write(JSON.stringify({
         from: {address: requ.body.origin},
         to: {address: requ.body.destination},
-      //   waypoints: [{address: 'Bridgewater Township , New Jersey'}],
         serviceProvider: 'gmaps',
+        
+        // ##........Can be used later........##
+
+      //   waypoints: [{address: 'Bridgewater Township , New Jersey'}],
       //   vehicle: {
       //     type: '2AxlesTaxi',
       //     weight: {value: 20000, unit: 'pound'},
@@ -112,10 +110,6 @@ app.post("/",function(requ,resp){
       }));
       req.end();
 })
-
-
-
-
 
 app.listen(3000,function(){
     console.log("Server running at port 3000");
