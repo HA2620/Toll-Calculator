@@ -1,12 +1,9 @@
 ## This WebApp lets you calculate toll prices between two places
 You shall enter
-- Origin
-<<<<<<< HEAD
-- Destination 
-=======
-- Destination/
 
->>>>>>> refs/remotes/origin/main
+- Origin
+- Destination 
+
 And it will display
 
 - A map of directions between orign - destination
